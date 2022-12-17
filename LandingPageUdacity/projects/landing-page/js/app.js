@@ -22,6 +22,9 @@
  * Define Global Variables
  * 
 */
+const listHead = document.querySelector("#navbar__list");
+// const i = 1;
+const names = document.getElementsByTagName('section');
 
 
 /**
@@ -39,8 +42,15 @@
 */
 
 // build the nav
-
-
+for (let i = 1;i<=names.length;i++){
+const sectionID = document.getElementById("section"+i);
+const createList = document.createElement('li');
+const anchor = document.createElement('a');
+anchor.href = "#section" + i ;
+anchor.innerHTML = sectionID.dataset.nav;
+listHead.appendChild(createList).appendChild(anchor);
+}
+// .innerHTML = '<a href=\"sectionID\">' + sectionID.dataset.nav + '</a>'
 // Add class 'active' to section when near top of viewport
 
 
