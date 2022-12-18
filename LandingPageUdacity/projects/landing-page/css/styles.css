@@ -95,6 +95,12 @@ section {
     transition: ease 0.3s all;
 }
 
+.navBtnAct{
+    background: #333;
+    color: #fff;
+}
+
+
 /* Header Styles */
 .page__header {
     background: #fff;
@@ -112,11 +118,6 @@ section {
 }
 
 .page__footer p{
-    color: #fff;
-}
-
-.navActive{
-    background: #333;
     color: #fff;
 }
 

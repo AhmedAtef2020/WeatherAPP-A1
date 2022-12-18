@@ -23,12 +23,12 @@
  * 
 */
 const listHead = document.querySelector("#navbar__list");
-const sections = document.getElementsByTagName('section');
+const sections = document.querySelectorAll('section');
 const sectionsBoundings = document.querySelector("section").getBoundingClientRect();
-const navButtons = document.getElementsByClassName("menu__link");
+const navBtns = document.querySelectorAll(".menu__link");
 
 
-// for (let navButton of navButtons){
+// for (let navButton of navBtn){
 //     navButton.addEventListener('click', clickSmooth);
 // }
 
@@ -46,31 +46,31 @@ const navButtons = document.getElementsByClassName("menu__link");
 */
 
 
-// for(let navButton of navButtons){
-function navActive(){
-    if (sectionsBoundings.top < window.innerHeight ){
-        console.log(sectionsBoundings.top);
-        console.log(window.innerHeight);
-        // document.getElementsByTagName("secNav1").classList.toggle("navActive");
-    }else{console.log("nothing");}
-}
+onscroll = function secBackground(e){
+    e.preventDefault();
+    sections.forEach(section => {
+        const secID = section.attributes.id.value;
+        const secBound = section.getBoundingClientRect();
+        const liveBtnRef = `li a[href="#${secID}"]`;
+        if (secBound.top <= secBound.height*0.5 && secBound.bottom >= secBound.height*0.5) {
+            document.getElementById(secID).classList.add("your-active-class");
+            document.querySelector(liveBtnRef).classList.add("navBtnAct");
+        }else{
+            document.getElementById(secID).classList.remove("your-active-class");
+            document.querySelector(liveBtnRef).classList.remove("navBtnAct");
+        }
+        
+    });
+};
+       
 
-// document.addEventListener("scroll", navBG);
 
-// function navBG(){
-//         for(let navButton of navButtons){
-//         if (sectionsBoundings.top <=0 && sectionsBoundings.bottom >= 0 ){
-//             document.getElementById(navButton.attributes.id).classList.add("navActive");
-//         } else{
-//             document.getElementById(navButton.attributes.id).classList.add("navActive");
-//         }
-//     };
-// }
+
 
     
 
 
-window.addEventListener("scroll", navActive());
+// document.addEventListener("scroll", navActive());
 
 /**
  * End Helper Functions
