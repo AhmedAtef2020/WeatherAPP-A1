@@ -26,17 +26,7 @@ const listHead = document.querySelector("#navbar__list");
 const sections = document.querySelectorAll('section');
 const sectionsBoundings = document.querySelector("section").getBoundingClientRect();
 const navBtns = document.querySelectorAll(".menu__link");
-
-
-// for (let navButton of navBtn){
-//     navButton.addEventListener('click', clickSmooth);
-// }
-
-// function clickSmooth (evt){
-//     evt.preventDefault();
-//     scroll({behavior:"smooth"});
-// }
-
+const navlists = document.querySelectorAll("li a");
 
 
 /**
@@ -46,7 +36,94 @@ const navBtns = document.querySelectorAll(".menu__link");
 */
 
 
-onscroll = function secBackground(e){
+
+/**
+ * End Helper Functions
+ * Begin Main Functions
+ * 
+*/
+
+// build the nav
+
+for (let i = 1;i<=sections.length;i++){
+    const sectionID = document.getElementById("section"+i);
+    const newList = document.createElement('li');
+    // newList.id = "secNav"+i;
+    const anchor = document.createElement('a');
+    anchor.dataset.btn = `sectoin${i}`
+    anchor.href = `#section${i}`;
+    anchor.innerHTML = sectionID.dataset.nav;
+    anchor.className = "menu__link";
+    listHead.appendChild(newList).appendChild(anchor);
+}
+
+
+
+/**
+ * End Main Functions
+ * Begin Events
+ * 
+*/
+
+
+// Build menu 
+
+// Scroll to section on link click
+
+/* ******* Scroll trying for smooth scroll (It was done by CSS) ******* */
+
+navlists.forEach(ele => {
+    ele.addEventListener('click', evt => {
+        ele.preventDefault();
+        const eleID = evt.target.attributes.href.value;
+        const toSecID = document.querySelector(eleID);
+        const secTop = toSecID.offsetTop;
+
+        // window.scrollTo({
+        //     top: secTop,
+        //     behavior: "smooth"
+        // })
+
+        toSecID.scrollIntoView({
+            behavoir: "smooth",
+        })
+    })
+    
+});
+
+// navBtns.forEach((navBtn) => {
+//     navBtn.
+//     navBtn.preventDefault();
+//     navBtn.addEventListener("click",() => {
+//     const btnHref = navBtn.attributes.href.value;
+//     const toSecID = document.querySelector(btnHref);
+//     toSecID.scrollIntoView({
+//         behavoir: "smooth",
+//         block: "start"
+//     })}
+//     );
+    
+// })
+
+
+// for (const navBtn of navBtns) {
+//     const btnHref = navBtn.attributes.href.value;
+//     console.log(btnHref);
+//     const toSecID = document.querySelector(`#${btnData}`);
+
+//     navBtn.addEventListener("click", () => {
+//         preventDefault();
+//         toSecID.scrollIntoView({
+//             behavoir: "smooth",
+//             block: "start"
+//         })
+//     }) 
+// }
+
+
+// Set sections as active
+
+onscroll = function activeElemnts(e){
     e.preventDefault();
     sections.forEach(section => {
         const secID = section.attributes.id.value;
@@ -65,59 +142,5 @@ onscroll = function secBackground(e){
        
 
 
-
-
-    
-
-
-// document.addEventListener("scroll", navActive());
-
-/**
- * End Helper Functions
- * Begin Main Functions
- * 
-*/
-
-// build the nav
-for (let i = 1;i<=sections.length;i++){
-    const sectionID = document.getElementById("section"+i);
-    const newList = document.createElement('li');
-    newList.id = "secNav"+i;
-    const anchor = document.createElement('a');
-    anchor.href = "#section" + i ;
-    anchor.innerHTML = sectionID.dataset.nav;
-    anchor.className = "menu__link";
-    listHead.appendChild(newList).appendChild(anchor);
-}
-
-
-// function navActive (){
-//     if (sectionView.top >=0 && document.dataset.secnav === "secNav "+x)
-//     document.querySelector("secNav "+x).classList.
-// }
-
-// if (elemnt in view port){
-//     section nav = > section Nave className = "menu__link:hover"
-// }
-
-// .innerHTML = '<a href=\"sectionID\">' + sectionID.dataset.nav + '</a>'
-// Add class 'active' to section when near top of viewport
-
-
-// Scroll to anchor ID using scrollTO event
-
-
-/**
- * End Main Functions
- * Begin Events
- * 
-*/
-
-
-// Build menu 
-
-// Scroll to section on link click
-
-// Set sections as active
-
+// document.addEventListener("scroll", activeElemnts());
 
