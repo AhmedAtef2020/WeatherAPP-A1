@@ -39,6 +39,47 @@ let noScrollPos = window.pageYOffset; // window Scroll in top
  * 
 */
 
+/* To top Button */
+
+/* To top Button create */
+
+createToTopButton = () => {
+    const topBtn = document.createElement("button");
+    topBtn.innerHTML = "TOP";
+    topBtn.id = "button__toTop";
+    document.body.appendChild(topBtn);
+}
+
+createToTopButton(); // call the create top button function
+
+/* Display button */
+
+const topButton = document.querySelector("#button__toTop");
+
+displayToTop = () => {
+    if (document.body.scrollTop <= 300) 
+    {
+        topButton.style.display = "none";
+    }
+    else
+    {
+        topButton.style.display = "block";
+    }
+}
+
+/* *** Add listener to Top Button */
+
+topButton.addEventListener("click", (e) => 
+{
+    e.preventDefault();
+    document.body.scrollTo
+    ({
+        top: 0,
+        left: 0,
+        behavior: "smooth",
+    });
+})
+
 
 /**
  * End Helper Functions
@@ -115,6 +156,8 @@ onscroll = (e) =>
         document.querySelector(".navbar__menu").style.top = "-50px";
     }
     noScrollPos = withScrollPos; //every time reset valus to start the action from this point
+
+    displayToTop(); // call to display top button
 
 };
 
