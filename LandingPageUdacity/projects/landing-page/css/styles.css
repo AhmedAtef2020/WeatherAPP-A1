@@ -67,6 +67,15 @@ section {
 /* ---- Module Rules ---- */
 
 /* Navigation Styles*/
+.navbar__menu{
+    background-color: white;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    display: block;
+    transition: top 0.5s; 
+}
+
 .navbar__menu ul {
     padding-left: 0;
     margin: 0 10px;

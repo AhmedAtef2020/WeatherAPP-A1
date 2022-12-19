@@ -22,10 +22,11 @@
  * Define Global Variables
  * 
 */
-
 const listHead = document.querySelector("#navbar__list"); // Identify list head to append the navbar to 
-const sections = document.querySelectorAll('section'); // array for all sections
+const sections = document.querySelectorAll("section"); // array for all sections
 const fragmentEle = document.createDocumentFragment(); // to use in navbar loop
+let noScrollPos = window.pageYOffset; // window Scroll in top
+
 
 /* *** assigned but not used *** */
 // const navlists = document.querySelectorAll("li a"); // Array to identify the links in navbar
@@ -50,24 +51,29 @@ const fragmentEle = document.createDocumentFragment(); // to use in navbar loop
  * add both elements to a fragment element, then add it after loop as Child to nav tag (nav part)
  * also create the smooth scroll inside this loop to applay for each element in sections.
  */
-
-sections.forEach((section, i) => {
-    const sectionID = section.id;
-    const newList = document.createElement('li');
-    const anchor = document.createElement('a');
+sections.forEach((section, i) =>
+{
+    const newList = document.createElement("li");
+    const anchor = document.createElement("a");
     anchor.dataset.btn = `sectoin${i+1}`
     anchor.href = `#section${i+1}`;
     anchor.innerHTML = section.dataset.nav;
     anchor.className = "menu__link";
     fragmentEle.appendChild(newList).appendChild(anchor);
 
-    anchor.addEventListener("click", (e) => { 
+    anchor.addEventListener("click", (e) =>
+    {
         e.preventDefault();
-        section.scrollIntoView({behavior: "smooth"}); 
-})
-    
+        section.scrollIntoView(
+        {
+            behavior: "smooth"
+        });
+    })
+
 });
 listHead.appendChild(fragmentEle);
+
+
 
 // Set sections as active
 
@@ -76,23 +82,49 @@ listHead.appendChild(fragmentEle);
  * and add or remove class of active for both navbar and sections backgrounds 
  */
 
-onscroll = function activeElemnts(e){
+onscroll = (e) =>
+{
     e.preventDefault();
-    sections.forEach(section => {
+    sections.forEach(section =>
+    {
         const secID = section.attributes.id.value;
         const secBound = section.getBoundingClientRect();
         const liveBtnRef = `li a[href="#${secID}"]`;
-        if (secBound.top <= secBound.height*0.25 && secBound.bottom >= secBound.height*0.25) {
+        if (secBound.top <= secBound.height * 0.25 && secBound.bottom >= secBound.height * 0.25)
+        {
             document.getElementById(secID).classList.add("your-active-class");
             document.querySelector(liveBtnRef).classList.add("navBtnAct");
-        }else{
+        }
+        else
+        {
             document.getElementById(secID).classList.remove("your-active-class");
             document.querySelector(liveBtnRef).classList.remove("navBtnAct");
         }
-        
+
     });
+
+/** when scrol down the nav bar disappear and whin scroll up appear again */
+    let withScrollPos = window.pageYOffset;
+    
+    if (noScrollPos > withScrollPos)
+    {
+        document.querySelector(".navbar__menu").style.top = "0";
+    }
+    else
+    {
+        document.querySelector(".navbar__menu").style.top = "-50px";
+    }
+    noScrollPos = withScrollPos; //every time reset valus to start the action from this point
+
 };
-       
+
+
+
+/* with the scroll
+*/
+
+
+
 // all the down are tries I keept them for a refrance for me 
 
 // document.addEventListener("scroll", activeElemnts());
