@@ -22,19 +22,21 @@
  * Define Global Variables
  * 
 */
-const listHead = document.querySelector("#navbar__list");
-const sections = document.querySelectorAll('section');
-const sectionsBoundings = document.querySelector("section").getBoundingClientRect();
-const navBtns = document.querySelectorAll(".menu__link");
-const navlists = document.querySelectorAll("li a");
 
+const listHead = document.querySelector("#navbar__list"); // Identify list head to append the navbar to 
+const sections = document.querySelectorAll('section'); // array for all sections
+const fragmentEle = document.createDocumentFragment(); // to use in navbar loop
+
+/* *** assigned but not used *** */
+// const navlists = document.querySelectorAll("li a"); // Array to identify the links in navbar
+// const sectionsBoundings = document.querySelector("section").getBoundingClientRect(); // to get the bounding data of section
+// const navBtns = document.querySelectorAll(".menu__link"); // to identify the links in navbar but prefer no to use
 
 /**
  * End Global Variables
  * Start Helper Functions
  * 
 */
-
 
 
 /**
@@ -44,18 +46,71 @@ const navlists = document.querySelectorAll("li a");
 */
 
 // build the nav
+/* loop over all sections, create "list element", then create "a" link element.
+ * add both elements to a fragment element, then add it after loop as Child to nav tag (nav part)
+ * also create the smooth scroll inside this loop to applay for each element in sections.
+ */
 
-for (let i = 1;i<=sections.length;i++){
-    const sectionID = document.getElementById("section"+i);
+sections.forEach((section, i) => {
+    const sectionID = section.id;
     const newList = document.createElement('li');
-    // newList.id = "secNav"+i;
     const anchor = document.createElement('a');
-    anchor.dataset.btn = `sectoin${i}`
-    anchor.href = `#section${i}`;
-    anchor.innerHTML = sectionID.dataset.nav;
+    anchor.dataset.btn = `sectoin${i+1}`
+    anchor.href = `#section${i+1}`;
+    anchor.innerHTML = section.dataset.nav;
     anchor.className = "menu__link";
-    listHead.appendChild(newList).appendChild(anchor);
-}
+    fragmentEle.appendChild(newList).appendChild(anchor);
+
+    anchor.addEventListener("click", (e) => { 
+        e.preventDefault();
+        section.scrollIntoView({behavior: "smooth"}); 
+})
+    
+});
+listHead.appendChild(fragmentEle);
+
+// Set sections as active
+
+/* using onscroll funcion as the addEvenListener for document scroll not working as needed 
+ * Also loops over sections and by using the bounds of section (top and bottom) 
+ * and add or remove class of active for both navbar and sections backgrounds 
+ */
+
+onscroll = function activeElemnts(e){
+    e.preventDefault();
+    sections.forEach(section => {
+        const secID = section.attributes.id.value;
+        const secBound = section.getBoundingClientRect();
+        const liveBtnRef = `li a[href="#${secID}"]`;
+        if (secBound.top <= secBound.height*0.25 && secBound.bottom >= secBound.height*0.25) {
+            document.getElementById(secID).classList.add("your-active-class");
+            document.querySelector(liveBtnRef).classList.add("navBtnAct");
+        }else{
+            document.getElementById(secID).classList.remove("your-active-class");
+            document.querySelector(liveBtnRef).classList.remove("navBtnAct");
+        }
+        
+    });
+};
+       
+// all the down are tries I keept them for a refrance for me 
+
+// document.addEventListener("scroll", activeElemnts());
+
+
+/* ******* Started with the bottom code and imporove to above one :) ******* */
+
+// for (let i = 1;i<=sections.length;i++){
+//     const sectionID = document.getElementById("section"+i);
+//     const newList = document.createElement('li');
+//     // newList.id = "secNav"+i;
+//     const anchor = document.createElement('a');
+//     anchor.dataset.btn = `sectoin${i}`
+//     anchor.href = `#section${i}`;
+//     anchor.innerHTML = sectionID.dataset.nav;
+//     anchor.className = "menu__link";
+//     listHead.appendChild(newList).appendChild(anchor);
+// }
 
 
 
@@ -70,26 +125,27 @@ for (let i = 1;i<=sections.length;i++){
 
 // Scroll to section on link click
 
-/* ******* Scroll trying for smooth scroll (It was done by CSS) ******* */
+/* ******* Scroll trying for smooth scroll (It was done by CSS) -- Tries of scroll smooth ******* */
 
-navlists.forEach(ele => {
-    ele.addEventListener('click', evt => {
-        ele.preventDefault();
-        const eleID = evt.target.attributes.href.value;
-        const toSecID = document.querySelector(eleID);
-        const secTop = toSecID.offsetTop;
+// navlists.forEach(ele => {
+//     ele.addEventListener('click', evt => {
+//         ele.preventDefault();
+//         const eleID = evt.target.attributes.href.value;
+//         const toSecID = document.querySelector(eleID);
+//         const secTop = toSecID.offsetTop;
 
-        // window.scrollTo({
-        //     top: secTop,
-        //     behavior: "smooth"
-        // })
+//         // window.scrollTo({
+//         //     top: secTop,
+//         //     behavior: "smooth"
+//         // })
 
-        toSecID.scrollIntoView({
-            behavoir: "smooth",
-        })
-    })
+//         toSecID.scrollIntoView({
+//             behavoir: "smooth",
+//         })
+//     })
     
-});
+// });
+
 
 // navBtns.forEach((navBtn) => {
 //     navBtn.
@@ -120,27 +176,4 @@ navlists.forEach(ele => {
 //     }) 
 // }
 
-
-// Set sections as active
-
-onscroll = function activeElemnts(e){
-    e.preventDefault();
-    sections.forEach(section => {
-        const secID = section.attributes.id.value;
-        const secBound = section.getBoundingClientRect();
-        const liveBtnRef = `li a[href="#${secID}"]`;
-        if (secBound.top <= secBound.height*0.5 && secBound.bottom >= secBound.height*0.5) {
-            document.getElementById(secID).classList.add("your-active-class");
-            document.querySelector(liveBtnRef).classList.add("navBtnAct");
-        }else{
-            document.getElementById(secID).classList.remove("your-active-class");
-            document.querySelector(liveBtnRef).classList.remove("navBtnAct");
-        }
-        
-    });
-};
-       
-
-
-// document.addEventListener("scroll", activeElemnts());
 

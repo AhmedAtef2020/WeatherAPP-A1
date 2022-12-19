@@ -11,16 +11,16 @@
 
 /* ---- Base Rules ---- */
 body {
-    background: rgb(136,203,171);
-    background: linear-gradient(0deg, rgba(136,203,171,1) 0%, rgba(0,13,60,1) 100%);
+    background: rgb(17, 158, 224);
+    background: linear-gradient(180deg, rgb(46, 128, 221) 0%, rgb(2, 47, 120) 100%);
     margin: 0;
     font-family: 'Merriweather', serif;
     color: #fff;
 }
 
-html{
+/* html{
     scroll-behavior: smooth;
-}
+} */
 
 /* Typeography General*/
 h1 {
@@ -48,10 +48,6 @@ p {
     color: #eee;
 }
 
-a {
-    text-decoration: none;
-}
-
 /* ---- Layout Rules ---- */
 main {
     margin: 10vh 1em 10vh;
@@ -74,7 +70,7 @@ section {
 .navbar__menu ul {
     padding-left: 0;
     margin: 0 10px;
-    text-align: right;
+    text-align: center;
 }
 
 .navbar__menu li {
@@ -90,16 +86,23 @@ section {
 }
 
 .navbar__menu .menu__link:hover {
-    background: #333;
+    background: rgb(0, 115, 254);
     color: #fff;
     transition: ease 0.3s all;
+    
 }
 
 .navBtnAct{
-    background: #333;
+    background: rgb(0, 92, 206);
     color: #fff;
 }
+/* @media only screen and (max-width: 600px){
+    .navbar__menu ul li{
+        display: block;
+        text-align: center;
+    }
 
+} */
 
 /* Header Styles */
 .page__header {
@@ -207,7 +210,7 @@ section:nth-of-type(3n + 1) .landing__container::after {
 /* Note: your-active-class class is applied through javascript. You should update the class here and in the index.html to what you set in your javascript file.  */
 section.your-active-class {
     background: rgb(0, 0, 0);
-    background: linear-gradient(0deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0) 100%);
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.3) 100%);
 }
 
 section.your-active-class .landing__container::before {
