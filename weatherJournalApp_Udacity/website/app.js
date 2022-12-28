@@ -1,6 +1,6 @@
 /* Global Variables */
 const baseURL = 'https://api.openweathermap.org/data/2.5/weather?zip=';
-const apiKey = '&appid=1a49afd7c84c376f8170c1f2bd2576de&units=imperial';
+const apiKey = '&appid=---------------&units=imperial';
 let generateBtn = document.getElementById('generate');
 let dateField = document.getElementById('date');
 let tempField = document.getElementById('temp');
