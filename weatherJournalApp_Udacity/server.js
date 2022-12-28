@@ -28,16 +28,19 @@ const server = app.listen(port, () => {
     console.log(`Server is running in http://localhost:${port}/`);
 })
 
-function getApiData(req, res) {
-    res.send(projectData);
-    console.log(projectData);
-}
-
-app.get('/apiData', getApiData);
 
 function postApiData (req, res) {
-    projectData = req.body;
+    // projectData = req.body;
+    projectData.newDate = req.body.newDate;
+    projectData.feelingRes = req.body.feelingRes;
+    projectData.WeatherTemp = req.body.WeatherTemp;
     console.log(projectData);
 }
 
-app.post('/postData', postApiData);
+app.post('/apiData', postApiData);
+
+function uiApiData(req, res) {
+    res.send(projectData);
+}
+
+app.get('/uiData', uiApiData);
